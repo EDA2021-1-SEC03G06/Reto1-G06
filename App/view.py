@@ -36,6 +36,7 @@ operación solicitada
 
 def printMenu():
     print("Bienvenido")
+    print("0- Seleccionar tipo de datos")
     print("1- Cargar información en el catálogo")
     print("2-  Encontrar buenos videos por categoria y pais")
     print("3- Encontrar video tendencia por pais")
@@ -49,11 +50,20 @@ Menu principal
 """
 while True:
     printMenu()
-    inputs = input('Seleccione una opción para continuar\n')
-    if int(inputs[0]) == 1:
+    tipo=""
+    inputs = int(input('Seleccione una opción para continuar\n'))
+    if inputs==0:
+        x=int(input("Presione 1 para seleccionar arreglos, o 2 para seleccionar listas encadenadas"))
+        if x==1:
+            tipo="ARRAY_LIST"
+        else:
+            tipo="SINGLE_LINKED"
+    elif inputs == 1:
         print("Cargando información de los archivos ....")
+        catalog=controller.initCatalog(tipo)
+        controller.loadData(catalog)
 
-    elif int(inputs[0]) == 2:
+    elif inputs == 2:
         pass
 
     else:

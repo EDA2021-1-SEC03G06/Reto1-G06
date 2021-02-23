@@ -36,12 +36,12 @@ los mismos.
 """
 
 # Construccion de modelos
-def newCatalog():
+def newCatalog(tipo):
     catalog={ "videos" : None,
                "Category" : None}
 
-    catalog["videos"] = lt.newList()
-    catalog["Category"]=lt.newList("ARRAY_LIST")
+    catalog["videos"] = lt.newList(tipo)
+    catalog["Category"]=lt.newList(tipo)
 
     return catalog
 
@@ -67,7 +67,7 @@ def newVideo(nombre_parametros, parametros):
     return diccionario
 
 def newCategory(id,name):
-    diccionario={ "id"=id,"name"=name}
+    diccionario={ "id": id,"name":name}
     return diccionario
 
 # Funciones de consulta
