@@ -28,7 +28,10 @@
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import selectionsort as se
+from DISClib.Algorithms.Sorting import insertionsort as si
 assert cf
+import time
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
@@ -49,22 +52,13 @@ def newCatalog(tipo):
 # Funciones para agregar informacion al catalogo
 
 def addVideo(catalog,video):
-    nombre_parametros=video.keys()
-    valor_parametros=video.values()
-    nuevo_video=newVideo(nombre_parametros,valor_parametros)
-    lt.addLast(catalog["videos"],nuevo_video)
+    lt.addLast(catalog["videos"],video)
 
 def addCategory(catalog,category):
-    nueva_categoria=newCategory(category["id"],category["name"])
-    lt.addLast(catalog["Category"],nueva_categoria)
+    lt.addLast(catalog["Category"],category)
     
 
 # Funciones para creacion de datos
-def newVideo(nombre_parametros, parametros):
-    diccionario={}
-    for i in range (len(nombre_parametros)):
-        diccionario[nombre_parametros[i]]=parametros[i]
-    return diccionario
 
 def newCategory(id,name):
     diccionario={ "id": id,"name":name}
@@ -73,5 +67,31 @@ def newCategory(id,name):
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+def cmpVideosByViews(video1,video2):
+    return video1["views"]<video2["views"]
+
 
 # Funciones de ordenamiento
+
+def reduceList(catalog,size):
+    reduced=lt.subList(catalog["videos"],0,size)
+    return reduced
+
+def selectionSort(lista):
+    start_time = time.process_time()
+    se.sort(lista, cmpVideosByViews)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return lista,elapsed_time_mseg
+def insertionSort(lista):
+    start_time = time.process_time()
+    si.sort(lista, cmpVideosByViews)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return lista,elapsed_time_mseg
+def shellSort(lista):
+    start_time = time.process_time()
+    sa.sort(lista, cmpVideosByViews)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return lista,elapsed_time_mseg

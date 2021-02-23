@@ -33,6 +33,10 @@ El controlador se encarga de mediar entre la vista y el modelo.
 def initCatalog(tipo):
     catalog=model.newCatalog(tipo)
     return catalog
+
+    
+
+# Funciones para la carga de datos
 def loadData(catalog):
     loadVideos(catalog)
     loadCategories(catalog)
@@ -43,17 +47,22 @@ def loadVideos(catalog):
     input_file=csv.DictReader(open(file_name,encoding="utf-8"))
     for video in input_file:
         model.addVideo(catalog,video)
+
     
 
 def loadCategories(catalog):
     file_name=cf.data_dir + "category-id.csv"
-    input_file=csv.DictReader(open(file_name),encoding="utf-8")
+    input_file=csv.DictReader(open(file_name,encoding="utf-8"))
     for categoria in input_file:
         model.addCategory(catalog, categoria)
-    
-
-# Funciones para la carga de datos
 
 # Funciones de ordenamiento
-
+def reduceList(catalog,size):
+    return model.reduceList(catalog,size)
+def selectionSort(lista):
+    return model.selectionSort(lista)
+def insertionSort(lista):
+    return model.insertionSort(lista)
+def shellSort(lista):
+    return model.shellSort(lista)
 # Funciones de consulta sobre el catálogo

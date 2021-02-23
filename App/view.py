@@ -42,16 +42,17 @@ def printMenu():
     print("3- Encontrar video tendencia por pais")
     print("4- Encontrar video tendencia por categoría")
     print("5- Buscar videos con mas likes ")
+    print("6- Seleccionar tamaño de la muestra para trabajar")
 
 catalog = None
-
+reducido= None
 """
 Menu principal
 """
 while True:
     printMenu()
     tipo=""
-    inputs = int(input('Seleccione una opción para continuar\n'))
+    inputs = int(input('Seleccione una opción para continuar '))
     if inputs==0:
         x=int(input("Presione 1 para seleccionar arreglos, o 2 para seleccionar listas encadenadas"))
         if x==1:
@@ -64,7 +65,27 @@ while True:
         controller.loadData(catalog)
 
     elif inputs == 2:
-        pass
+        size=int(input("Indique el tamaño de la muestra"))
+        if size<lt.size(catalog["videos"]):
+            reducido=controller.reduceList(catalog,size)  
+            print("Seleccione el tipo de ordenamiento iterativo:")
+            print("1- selection Sort")
+            print("2- Insertion Sort")
+            print("3- Shell Sort")
+            size=lt.size(reducido)
+            tipo=int(input())
+            if tipo==1:
+                ordenado=controller.selectionSort(prueba)
+            elif tipo==2:
+                ordenado=controller.insertionSort(prueba)
+            elif tipo==3:
+                ordenado=controller.shellSort(prueba)
+            print(" Para una muestra de " +str(size) + " El tiempo en que se ordenaron los datos fue de : " + str(ordenado[1]) + " milisegundos")
+    elif inputs==6:
+        size=int(input("Indique el tamaño de la muestra"))
+        if size<lt.size(catalog["videos"]):
+            reducido=controller.reduceList(catalog,size)  
+        
 
     else:
         sys.exit(0)
