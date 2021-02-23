@@ -75,11 +75,11 @@ while True:
             size=lt.size(reducido)
             tipo=int(input())
             if tipo==1:
-                ordenado=controller.selectionSort(prueba)
+                ordenado=controller.selectionSort(reducido)
             elif tipo==2:
-                ordenado=controller.insertionSort(prueba)
+                ordenado=controller.insertionSort(reducido)
             elif tipo==3:
-                ordenado=controller.shellSort(prueba)
+                ordenado=controller.shellSort(reducido)
             print(" Para una muestra de " +str(size) + " El tiempo en que se ordenaron los datos fue de : " + str(ordenado[1]) + " milisegundos")
     elif inputs==6:
         size=int(input("Indique el tamaño de la muestra"))
