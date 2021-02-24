@@ -68,7 +68,7 @@ def newCategory(id,name):
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 def cmpVideosByViews(video1,video2):
-    return video1["views"]<video2["views"]
+    return int(video1["views"]) < int(video2["views"])
 
 
 # Funciones de ordenamiento

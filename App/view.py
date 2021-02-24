@@ -38,7 +38,7 @@ def printMenu():
     print("Bienvenido")
     print("0- Seleccionar tipo de datos")
     print("1- Cargar información en el catálogo")
-    print("2-  Encontrar buenos videos por categoria y pais")
+    print("2-  Encontrar videos con menos vistas")
     print("3- Encontrar video tendencia por pais")
     print("4- Encontrar video tendencia por categoría")
     print("5- Buscar videos con mas likes ")
@@ -74,12 +74,18 @@ while True:
             print("3- Shell Sort")
             size=lt.size(reducido)
             tipo=int(input())
+            #for i in range(1,10):
+            #    p=lt.getElement(reducido,i)
+            #    print(p["video_id"],p["views"])
             if tipo==1:
                 ordenado=controller.selectionSort(reducido)
             elif tipo==2:
                 ordenado=controller.insertionSort(reducido)
             elif tipo==3:
                 ordenado=controller.shellSort(reducido)
+            for i in range(1,11):
+                x=lt.getElement(ordenado[0],i)
+                print(x["video_id"], x["views"])
             print(" Para una muestra de " +str(size) + " El tiempo en que se ordenaron los datos fue de : " + str(ordenado[1]) + " milisegundos")
     elif inputs==6:
         size=int(input("Indique el tamaño de la muestra"))
