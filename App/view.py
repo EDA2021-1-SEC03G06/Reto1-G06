@@ -50,20 +50,14 @@ reducido= None
 """
 Menu principal
 """
-print("cargando")
-start_time = time.process_time()
-catalog=controller.initCatalog("SINGLE_LINKED")
-controller.loadData(catalog)
-stop_time = time.process_time()
-elapsed_time_mseg = (stop_time - start_time)*1000
-print(elapsed_time_mseg)
+
 while True:
     printMenu()
     tipo=""
     inputs = int(input('Seleccione una opción para continuar '))
     if inputs==0:
         x=0
-        #x=int(input("Presione 1 para seleccionar arreglos, o 2 para seleccionar listas encadenadas"))
+        x=int(input("Presione 1 para seleccionar arreglos, o 2 para seleccionar listas encadenadas"))
         if x==1:
             tipo="ARRAY_LIST"
         else:
