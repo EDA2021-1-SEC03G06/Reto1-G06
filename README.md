@@ -1,8 +1,10 @@
 #ISIS1225 - Librerias de soporte
 
-Estudiante1: Requerimiento 1 y 4 Pablo Alejandro Guatibonza Briceño 202014393 p.guatibonza@uniandes.edu.co
+Requerimiento 1 y 4 trabajo en grupo
 
-Estudiante2 :  Requerimiento 2 y 3 Kaled Andres Correal Sosa   201920829 K.correal@uniandes.edu.co
+Estudiante1: Requerimiento 2  Pablo Alejandro Guatibonza Briceño 202014393 p.guatibonza@uniandes.edu.co
+
+Estudiante2 :  Requerimiento  3 Kaled Andres Correal Sosa   201920829 K.correal@uniandes.edu.co
 
 Modificamos de 512000 a 375918 datos debido a que es el numero maximo de datos en el archivo csv
 
