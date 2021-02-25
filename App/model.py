@@ -30,6 +30,8 @@ from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Sorting import selectionsort as se
 from DISClib.Algorithms.Sorting import insertionsort as si
+from DISClib.Algorithms.Sorting import quicksort as qs
+from DISClib.Algorithms.Sorting import mergesort as ms
 assert cf
 import time
 
@@ -83,15 +85,30 @@ def selectionSort(lista):
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return lista,elapsed_time_mseg
+
 def insertionSort(lista):
     start_time = time.process_time()
     si.sort(lista, cmpVideosByViews)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return lista,elapsed_time_mseg
+
 def shellSort(lista):
     start_time = time.process_time()
     sa.sort(lista, cmpVideosByViews)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return lista,elapsed_time_mseg
+def mergeSort(lista):
+    start_time = time.process_time()
+    ms.sort(lista, cmpVideosByViews)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return lista,elapsed_time_mseg
+
+def quicksort(lista):
+    start_time = time.process_time()
+    qs.sort(lista, cmpVideosByViews)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return lista,elapsed_time_mseg

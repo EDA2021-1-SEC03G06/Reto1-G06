@@ -65,4 +65,8 @@ def insertionSort(lista):
     return model.insertionSort(lista)
 def shellSort(lista):
     return model.shellSort(lista)
+def mergeSort(lista):
+    return model.shellSort(lista)
+def quickSort(lista):
+    return model.shellSort(lista)
 # Funciones de consulta sobre el catálogo
