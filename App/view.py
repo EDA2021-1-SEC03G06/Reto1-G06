@@ -75,6 +75,8 @@ while True:
             print("1- selection Sort")
             print("2- Insertion Sort")
             print("3- Shell Sort")
+            print("4- quick sort")
+            print("5- merge sort")
             size=lt.size(reducido)
             tipo=int(input())
             #for i in range(1,10):
@@ -86,6 +88,10 @@ while True:
                 ordenado=controller.insertionSort(reducido)
             elif tipo==3:
                 ordenado=controller.shellSort(reducido)
+            elif tipo ==4:
+                    ordenado=controller.quickSort(reducido)
+            elif tipo==5:
+                ordenado=controller.mergeSort(reducido)
             for i in range(1,11):
                 x=lt.getElement(ordenado[0],i)
                 print(x["video_id"], x["views"])
