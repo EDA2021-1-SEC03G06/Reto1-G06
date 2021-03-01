@@ -51,6 +51,9 @@ reducido= None
 Menu principal
 """
 
+
+
+sys.setrecursionlimit(1000*10)
 while True:
     printMenu()
     tipo=""
