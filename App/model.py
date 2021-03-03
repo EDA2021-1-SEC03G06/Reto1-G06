@@ -157,6 +157,7 @@ def listaPorCategoriaPaises(pais,categoria,tamano,tipo,catalog):
     start_time = time.process_time()
     lista=catalog["videos"]
     size=lt.size(lista)
+
     numero=getCategoryNumber(categoria,catalog)
     tamano=int(tamano)
     contador=1
