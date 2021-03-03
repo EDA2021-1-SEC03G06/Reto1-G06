@@ -90,9 +90,6 @@ def cmpVideosByCategory(numero,video):
     return int(video["category_id"])==int(numero)
 # Funciones de ordenamiento
 
-
-
-
 def reduceList(catalog,size):
     reduced=lt.subList(catalog["videos"],0,size)
     return reduced
@@ -142,7 +139,7 @@ def mergeSort(lista,ascendente):
     elapsed_time_mseg = (stop_time - start_time)*1000
     return lista,elapsed_time_mseg
 
-def quicksort(lista,ascendente):
+def quickSort(lista,ascendente):
     start_time = time.process_time()
     if ascendente:
         qs.sort(lista, cmpVideosByvViewsAscendant)
@@ -160,41 +157,43 @@ def listaPorCategoriaPaises(pais,categoria,tamano,tipo,catalog):
     start_time = time.process_time()
     lista=catalog["videos"]
     size=lt.size(lista)
-
-    if tipo==1:
-        ordenada=selectionSort(lista,True)
-    elif tipo==2:
-        ordenada=insertionSort(lista,True)
-    elif tipo==3:
-        ordenada=shellSort(lista,True)
-    elif tipo==4:
-        ordenada=quicksort(lista,True)
-    elif tipo==5:
-        ordenada=mergeSort(lista,True)
-    
     numero=getCategoryNumber(categoria,catalog)
     tamano=int(tamano)
     contador=1
     recorredor=1
-    size=lt.size(ordenada[0])
-    while (contador<=tamano or recorredor>size):
-        video=lt.getElement(ordenada[0],recorredor)
+
+    while (recorredor<=size):
+        video=lt.getElement(lista,recorredor)
         if cmpVideosByCategory(numero,video) and cmpVideosByCountry(pais,video):
-            lt.exchange(ordenada[0],recorredor,contador)
+            lt.exchange(lista,recorredor,contador)
             contador+=1
         recorredor+=1
 
     if tamano!=1:
-        lista_total=lt.subList(ordenada[0],1,contador-1)
+        lista_total=lt.subList(lista,1,contador-1)
     else:
-        lista_total=lt.subList(ordenada[0],1,contador)
+        lista_total=lt.subList(lista,1,contador)
+    
+    ordenada=seleccionarOrdenamiento(tipo,lista_total,True)
 
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
-    return lista_total, elapsed_time_mseg
+    return ordenada[0], elapsed_time_mseg
 
+#funciones de seleccion de ordenamientos
 
-
-
+def seleccionarOrdenamiento(tipo,lista,ascendente):
+    tipo=int(tipo)
+    if tipo==1:
+        ordenada=selectionSort(lista,ascendente)
+    if tipo==2:
+        ordenada=insertionSort(lista,ascendente)
+    if tipo==3:
+        ordenada=shellSort(lista,ascendente)
+    if tipo==4:
+        ordenada=quickSort(lista,ascendente)
+    if tipo==5:
+        ordenada=mergeSort(lista,ascendente)
+    return ordenada
 
     

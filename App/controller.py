@@ -77,3 +77,7 @@ def reduceList(catalog,size):
 def PaisesCategoria(pais,categoria,tamano,tipo,catalog):
     return model.listaPorCategoriaPaises(pais,categoria,tamano,tipo,catalog)
 
+#funcion para seleccionar ordenamientos
+
+def seleccionarOrdenamiento(tipo,lista,ascendente):
+    return model.seleccionarOrdenamiento(tipo,lista,ascendente)

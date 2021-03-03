@@ -59,18 +59,6 @@ def mostrarOrdenamientos():
     print("5- merge sort")
 
 
-def seleccionarOrdenamiento(numero,lista,ascendente):
-    if numero==1:
-        ordenado=controller.selectionSort(lista,ascendente)
-    if numero==2:
-        ordenado=controller.insertionSort(lista,ascendente)
-    if numero==3:
-        ordenado=controller.shellSort(lista,ascendente)
-    if numero==4:
-        ordenado=controller.quickSort(lista,ascendente)
-    if numero==5:
-        ordenado=controller.mergeSort(lista,ascendente)
-    return ordenado
 
 
 
@@ -99,7 +87,7 @@ while True:
             mostrarOrdenamientos()
             size=lt.size(reducido)
             tipo=int(input())
-            ordenado=seleccionarOrdenamiento(tipo,reducido,False)
+            ordenado=controller.seleccionarOrdenamiento(tipo,reducido,False)
             for i in range(1,11):
                 x=lt.getElement(ordenado[0],i)
                 print(x["video_id"], x["views"])
@@ -116,8 +104,9 @@ while True:
 
         for i in range(1,tamano+1):
             x=lt.getElement(lista[0],i)
-            print(i ," : ", x["title"]," ",x["trending_date"]," ",x["channel_title"]," ",x["publish_time"]," ",x["views"]," ",x["likes"]," ",x["dislikes"] )
+            print(i ," : ", x["title"]," ",x["trending_date"]," ",x["channel_title"]," ",x["publish_time"]," ",x["views"]," ",x["likes"]," ",x["dislikes"],x["country"] )
         print(lista[1]) 
+
     elif inputs==6:
         size=int(input("Indique el tamaño de la muestra"))
         if size<lt.size(catalog["videos"]):
