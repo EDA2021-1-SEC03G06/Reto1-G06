@@ -43,7 +43,7 @@ def loadData(catalog):
 
 def loadVideos(catalog):
     
-    file_name=cf.data_dir + "videos-large.csv"
+    file_name=cf.data_dir + "videos-small.csv"
     input_file=csv.DictReader(open(file_name,encoding="utf-8"))
     for video in input_file:
         model.addVideo(catalog,video)
@@ -52,21 +52,28 @@ def loadVideos(catalog):
 
 def loadCategories(catalog):
     file_name=cf.data_dir + "category-id.csv"
-    input_file=csv.DictReader(open(file_name,encoding="utf-8"))
+    input_file=csv.DictReader(open(file_name,encoding="utf-8"),delimiter="\t")
     for categoria in input_file:
         model.addCategory(catalog, categoria)
 
 # Funciones de ordenamiento
+
+
+def selectionSort(lista,ascendente):
+    return model.selectionSort(lista,ascendente)
+def insertionSort(lista,ascendente):
+    return model.insertionSort(lista,ascendente)
+def shellSort(lista,ascendente):
+    return model.shellSort(lista,ascendente)
+def mergeSort(lista,ascendente):
+    return model.shellSort(lista,ascendente)
+def quickSort(lista,ascendente):
+    return model.shellSort(lista,ascendente)
+
+# Funciones de consulta sobre el catálogo
+# Funciones para reducir datos
 def reduceList(catalog,size):
     return model.reduceList(catalog,size)
-def selectionSort(lista):
-    return model.selectionSort(lista)
-def insertionSort(lista):
-    return model.insertionSort(lista)
-def shellSort(lista):
-    return model.shellSort(lista)
-def mergeSort(lista):
-    return model.shellSort(lista)
-def quickSort(lista):
-    return model.shellSort(lista)
-# Funciones de consulta sobre el catálogo
+def PaisesCategoria(pais,categoria,tamano,tipo,catalog):
+    return model.listaPorCategoriaPaises(pais,categoria,tamano,tipo,catalog)
+

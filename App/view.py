@@ -50,6 +50,27 @@ reducido= None
 """
 Menu principal
 """
+def mostrarOrdenamientos():
+    print("Seleccione el tipo de ordenamiento iterativo:")
+    print("1- selection Sort")
+    print("2- Insertion Sort")
+    print("3- Shell Sort")
+    print("4- quick sort")
+    print("5- merge sort")
+
+
+def seleccionarOrdenamiento(numero,lista,ascendente):
+    if numero==1:
+        ordenado=controller.selectionSort(lista,ascendente)
+    if numero==2:
+        ordenado=controller.insertionSort(lista,ascendente)
+    if numero==3:
+        ordenado=controller.shellSort(lista,ascendente)
+    if numero==4:
+        ordenado=controller.quickSort(lista,ascendente)
+    if numero==5:
+        ordenado=controller.mergeSort(lista,ascendente)
+    return ordenado
 
 
 
@@ -59,46 +80,44 @@ while True:
     tipo=""
     inputs = int(input('Seleccione una opción para continuar '))
     if inputs==0:
-        x=0
-        x=int(input("Presione 1 para seleccionar arreglos, o 2 para seleccionar listas encadenadas"))
+
+        x=int(input("Presione 1 para seleccionar arreglos, o 2 para seleccionar listas encadenadas "))
         if x==1:
             tipo="ARRAY_LIST"
         else:
             tipo="SINGLE_LINKED"
     elif inputs == 1:
-        print("Cargando información de los archivos ....")
+        print("Cargando información de los archivos .... ")
         catalog=controller.initCatalog(tipo)
         controller.loadData(catalog)
+       
 
     elif inputs == 2:
-        size=int(input("Indique el tamaño de la muestra"))
+        size=int(input("Indique el tamaño de la muestra "))
         if size<lt.size(catalog["videos"]):
             reducido=controller.reduceList(catalog,size)  
-            print("Seleccione el tipo de ordenamiento iterativo:")
-            print("1- selection Sort")
-            print("2- Insertion Sort")
-            print("3- Shell Sort")
-            print("4- quick sort")
-            print("5- merge sort")
+            mostrarOrdenamientos()
             size=lt.size(reducido)
             tipo=int(input())
-            #for i in range(1,10):
-            #    p=lt.getElement(reducido,i)
-            #    print(p["video_id"],p["views"])
-            if tipo==1:
-                ordenado=controller.selectionSort(reducido)
-            elif tipo==2:
-                ordenado=controller.insertionSort(reducido)
-            elif tipo==3:
-                ordenado=controller.shellSort(reducido)
-            elif tipo ==4:
-                    ordenado=controller.quickSort(reducido)
-            elif tipo==5:
-                ordenado=controller.mergeSort(reducido)
+            ordenado=seleccionarOrdenamiento(tipo,reducido,False)
             for i in range(1,11):
                 x=lt.getElement(ordenado[0],i)
                 print(x["video_id"], x["views"])
             print(" Para una muestra de " +str(size) + " El tiempo en que se ordenaron los datos fue de : " + str(ordenado[1]) + " milisegundos")
+    elif inputs==3:
+        tamano=int(input("Ingrese la cantidad de videos en el ranking "))
+        pais=input("Ingrese el nombre del pais ")
+        categoria=input("Ingrese la categoria que desea buscar ")
+        mostrarOrdenamientos()
+        numero=int(input())
+        print("cargando...")
+
+        lista=controller.PaisesCategoria(pais,categoria,tamano,numero,catalog)
+
+        for i in range(1,tamano+1):
+            x=lt.getElement(lista[0],i)
+            print(i ," : ", x["title"]," ",x["trending_date"]," ",x["channel_title"]," ",x["publish_time"]," ",x["views"]," ",x["likes"]," ",x["dislikes"] )
+        print(lista[1]) 
     elif inputs==6:
         size=int(input("Indique el tamaño de la muestra"))
         if size<lt.size(catalog["videos"]):
