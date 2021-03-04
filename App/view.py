@@ -61,22 +61,25 @@ def mostrarOrdenamientos():
 
 
 
-
+tipoDato=""
 sys.setrecursionlimit(1000*10)
 while True:
     printMenu()
-    tipo=""
+    
     inputs = int(input('Seleccione una opción para continuar '))
     if inputs==0:
 
         x=int(input("Presione 1 para seleccionar arreglos, o 2 para seleccionar listas encadenadas "))
         if x==1:
-            tipo="ARRAY_LIST"
-        else:
-            tipo="SINGLE_LINKED"
+            tipoDato="ARRAY_LIST"
+            print("Array lists")
+        elif x==2:
+            tipoDato="SINGLE_LINKED"
+            print("Single linked")
     elif inputs == 1:
         print("Cargando información de los archivos .... ")
-        catalog=controller.initCatalog(tipo)
+        catalog=controller.initCatalog(tipoDato)
+        print(tipoDato)
         controller.loadData(catalog)
        
 
