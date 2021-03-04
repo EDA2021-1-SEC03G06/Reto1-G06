@@ -163,12 +163,11 @@ def listaPorCategoriaPaises(pais,categoria,tamano,tipo,catalog):
     contador=1
     recorredor=1
 
-    while (recorredor<=size):
-        video=lt.getElement(lista,recorredor)
+    for i in range(1,size+1):
+        video=lt.getElement(lista,i)
         if cmpVideosByCategory(numero,video) and cmpVideosByCountry(pais,video):
-            lt.exchange(lista,recorredor,contador)
+            lt.exchange(lista,i,contador)
             contador+=1
-        recorredor+=1
 
     if tamano!=1:
         lista_total=lt.subList(lista,1,contador-1)
