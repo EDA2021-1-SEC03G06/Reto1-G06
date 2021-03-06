@@ -40,10 +40,11 @@ def printMenu():
     print("0- Seleccionar tipo de datos")
     print("1- Cargar información en el catálogo")
     print("2-  Encontrar videos con menos vistas")
-    print("3- Encontrar video tendencia por pais")
-    print("4- Encontrar video tendencia por categoría")
-    print("5- Buscar videos con mas likes ")
-    print("6- Seleccionar tamaño de la muestra para trabajar")
+    print("3-  Encontrar buenos videos por categoria y pais")
+    print("4- Encontrar video tendencia por pais")
+    print("5- Encontrar video tendencia por categoría")
+    print("6- Buscar videos con mas likes ")
+    print("7- Seleccionar tamaño de la muestra para trabajar")
 
 catalog = None
 reducido= None
@@ -90,7 +91,7 @@ while True:
             mostrarOrdenamientos()
             size=lt.size(reducido)
             tipo=int(input())
-            ordenado=controller.seleccionarOrdenamiento(tipo,reducido,False)
+            ordenado=controller.seleccionarOrdenamiento(tipo,reducido,2)
             for i in range(1,11):
                 x=lt.getElement(ordenado[0],i)
                 print(x["video_id"], x["views"])
@@ -108,9 +109,17 @@ while True:
         for i in range(1,tamano+1):
             x=lt.getElement(lista[0],i)
             print(i ," : ", x["title"]," ",x["trending_date"]," ",x["channel_title"]," ",x["publish_time"]," ",x["views"]," ",x["likes"]," ",x["dislikes"],x["country"] )
-        print(lista[1]) 
+        print("el algoritmo se demora: ",lista[1]," ms") 
+    elif inputs==4:
+        pais=input("Ingrese el nombre del pais  ")
+        print("cargando...")
+        
+        video_dias=controller.PaisTendencia(pais,catalog)
+        video=video_dias[0]
+        print(video["title"] ," ", video["channel_title"]," ", video["country"]," ",video_dias[1])
+        print("El algoritmo se demora :" , video_dias[2] ," ms")
 
-    elif inputs==6:
+    elif inputs==7:
         size=int(input("Indique el tamaño de la muestra"))
         if size<lt.size(catalog["videos"]):
             reducido=controller.reduceList(catalog,size)  

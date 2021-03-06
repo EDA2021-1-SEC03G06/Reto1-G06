@@ -71,13 +71,15 @@ def quickSort(lista,ascendente):
     return model.shellSort(lista,ascendente)
 
 # Funciones de consulta sobre el catálogo
+def PaisesCategoria(pais,categoria,tamano,tipo,catalog):
+    return model.listaPorCategoriaPaises(pais,categoria,tamano,tipo,catalog)
+def PaisTendencia(pais,catalog):
+    return model.encontrarVideoTendenciaPais(pais,catalog)
 # Funciones para reducir datos
 def reduceList(catalog,size):
     return model.reduceList(catalog,size)
-def PaisesCategoria(pais,categoria,tamano,tipo,catalog):
-    return model.listaPorCategoriaPaises(pais,categoria,tamano,tipo,catalog)
 
 #funcion para seleccionar ordenamientos
 
-def seleccionarOrdenamiento(tipo,lista,ascendente):
-    return model.seleccionarOrdenamiento(tipo,lista,ascendente)
+def seleccionarOrdenamiento(tipo,lista,numero):
+    return model.seleccionarOrdenamiento(tipo,lista,numero)
