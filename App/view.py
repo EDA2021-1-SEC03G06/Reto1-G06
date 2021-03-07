@@ -117,7 +117,21 @@ while True:
         video_dias=controller.PaisTendencia(pais,catalog)
         video=video_dias[0]
         print(video["title"] ," ", video["channel_title"]," ", video["country"]," ",video_dias[1])
-        print("El algoritmo se demora :" , video_dias[2] ," ms")
+        print("El algoritmo se demora :" , video_dias[2] ," ms",video["tags"])
+    elif inputs==6:
+        pais=input("Ingrese el nombre del pais ")
+        numero=int(input("Ingrese la cantidad de videos "))
+        tag=input("Ingrese el tag ")
+        print("cargando")
+        videos=controller.PaisTagLikes(pais,tag,catalog)
+        size=lt.size(videos[0])
+        if numero>size:
+            numero=size
+        for i in range(1,numero+1):
+            video=lt.getElement(videos[0],i)
+            print(i, " ",video["title"]," ",video["channel_title"]," ",video["publish_time"]," ",video["likes"]," ",video["tags"]," ",video["country"])
+        print("Tiempo de ejecución: ", videos[1])
+
 
     elif inputs==7:
         size=int(input("Indique el tamaño de la muestra"))
