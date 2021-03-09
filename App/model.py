@@ -78,6 +78,8 @@ def getCategoryNumber(nombre,catalog):
             print(elemento["id"])
             return int(elemento["id"])
     return -1
+
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 def cmpVideosByViewsDescendant(video1,video2):
    return int(video1["views"])< int(video2["views"])
@@ -91,6 +93,21 @@ def cmpVideosByCategory(numero,video):
     return int(video["category_id"])==int(numero)
 def cmpVideosById(video1,video2):
     return video1["video_id"]<video2["video_id"]
+
+def cmpVideosByTag(tag,video):
+    return tag in video["tags"]         #esta forma busca en toda la lista de tags si hay una cadena de caracteres igual a %tag%
+
+    """
+    tags=encontrarTags(video)           esta forma busca un tag especifico llamada %tag%
+    for i in tags:
+        if i==tag:
+            return True
+    return False
+    """
+def cmpVideosByLikes(video1,video2):
+    return int(video1["likes"])>int(video2["likes"])
+def cmpVideosByTitle(video1,video2):
+    return video1["title"]<video2["title"]
 # Funciones de ordenamiento
 
 def reduceList(catalog,size):
@@ -106,8 +123,11 @@ def selectionSort(lista,numero):
     elif numero==2:
         se.sort(lista,cmpVideosByViewsDescendant)
         stop_time = time.process_time()
-    else:
+    elif numero==3:
         se.sort(lista,cmpVideosById)
+        stop_time = time.process_time()
+    else:
+        se.sort(lista,cmpVideosByLikes)
         stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return lista,elapsed_time_mseg
@@ -121,8 +141,11 @@ def insertionSort(lista,numero):
     elif numero==2:
         si.sort(lista,cmpVideosByViewsDescendant)
         stop_time = time.process_time()
-    else:
+    elif numero==3:
         si.sort(lista,cmpVideosById)
+        stop_time = time.process_time()
+    else:
+        si.sort(lista,cmpVideosByLikes)
         stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return lista,elapsed_time_mseg
@@ -136,8 +159,11 @@ def shellSort(lista,numero):
     elif numero==2:
         sa.sort(lista,cmpVideosByViewsDescendant)
         stop_time = time.process_time()
+    elif numero==3:
+        sa.sort(lista,cmpVideosByViewsDescendant)
+        stop_time = time.process_time()
     else:
-        sa.sort(lista,cmpVideosById)
+        sa.sort(lista,cmpVideosByLikes)
         stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return lista,elapsed_time_mseg
@@ -151,9 +177,17 @@ def mergeSort(lista,numero):
     elif numero==2:
         ms.sort(lista,cmpVideosByViewsDescendant)
         stop_time = time.process_time()
-    else:
+    elif numero==3:
         ms.sort(lista,cmpVideosById)
         stop_time = time.process_time()
+    elif numero==5:
+        ms.sort(lista,cmpVideosByTitle)
+        stop_time=time.process_time()
+    else:
+        ms.sort(lista,cmpVideosByLikes)
+        stop_time = time.process_time()
+        
+        
     elapsed_time_mseg = (stop_time - start_time)*1000
     return lista,elapsed_time_mseg
 
@@ -167,8 +201,11 @@ def quickSort(lista,numero):
     elif numero==2:
         qs.sort(lista,cmpVideosByViewsDescendant)
         stop_time = time.process_time()
-    else:
+    elif numero==3:
         qs.sort(lista,cmpVideosById)
+        stop_time = time.process_time()
+    else:
+        qs.sort(lista,cmpVideosByLikes)
         stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return lista,elapsed_time_mseg
@@ -191,10 +228,7 @@ def listaPorCategoriaPaises(pais,categoria,tamano,tipo,catalog):
             lt.exchange(lista,i,contador)
             contador+=1
 
-    if tamano!=1:
-        lista_total=lt.subList(lista,1,contador-1)
-    else:
-        lista_total=lt.subList(lista,1,contador)
+    lista_total=lt.subList(lista,1,contador)
     
     ordenada=seleccionarOrdenamiento(tipo,lista_total,1)
 
@@ -205,17 +239,8 @@ def listaPorCategoriaPaises(pais,categoria,tamano,tipo,catalog):
 #funciones de seleccion de ordenamientos
 
 def encontrarVideoTendenciaPais(pais,catalog):
-    start_time = time.process_time()
-    videos=catalog["videos"]
-    size=lt.size(videos)
-    contador=1
-    for i in range(1,size+1):               #seleccionamos los videos que son de un pais y los colocamos al inicio de la lista
-        video=lt.getElement(videos,i)
-        if cmpVideosByCountry(pais,video):
-            lt.exchange(videos,i,contador)
-            contador+=1
-    
-    lista_paises=lt.subList(videos,1,contador) #reducimos la lista total de videos a los videos que son del pais deseado
+    start_time = time.process_time()    
+    lista_paises=reducirListaPaises(pais,catalog) #reducimos la lista total de videos a los videos que son del pais deseado
     lista_ordenada=mergeSort(lista_paises,3)[0] #ordenamos los paises segun su id
 
     mayor=lt.getElement(lista_ordenada,1)
@@ -238,7 +263,10 @@ def encontrarVideoTendenciaPais(pais,catalog):
                 cantidad_mayor=cantidad
                 mayor=lt.getElement(lista_ordenada,numeral)
             numeral+=1
-
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return mayor,cantidad_mayor,elapsed_time_mseg
+    
 def encontrarVideoTendenciaCategoria(nombre,catalog):
     start_time = time.process_time()
     videos = catalog["videos"]
@@ -279,13 +307,53 @@ def encontrarVideoTendenciaCategoria(nombre,catalog):
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return mayor,cantidad_mayor,elapsed_time_mseg
-          
-            
-            
-        
-        
 
+def reducirListaPaises(pais,catalog):
+    videos=catalog["videos"]
+    size=lt.size(videos)
+    contador=1
+    for i in range(1,size+1):               #seleccionamos los videos que son de un pais y los colocamos al inicio de la lista
+        video=lt.getElement(videos,i)
+        if cmpVideosByCountry(pais,video):
+            lt.exchange(videos,i,contador)
+            contador+=1
+    
+    lista_paises=lt.subList(videos,1,contador)
+    return lista_paises          
+            
+def encontrarVideoLikesTagsPais(pais,tag,catalog):
+    start_time = time.process_time()
 
+    lista_paises=reducirListaPaises(pais,catalog)
+    size=lt.size(lista_paises)
+    nueva_lista=lt.newList("ARRAY_LIST")
+
+    for i in range(1,size+1):
+        video=lt.getElement(lista_paises,i)
+        if cmpVideosByTag(tag,video):
+            lt.addLast(nueva_lista,video)
+    
+    nueva_lista=mergeSort(nueva_lista,4)[0]
+    nueva_lista=mergeSort(nueva_lista,3)[0]
+    size=lt.size(nueva_lista)
+
+    lista_ordenada=lt.newList("ARRAY_LIST")
+    video=lt.getElement(nueva_lista,1)
+    lt.addLast(lista_ordenada,video)
+
+    for i in range(1,size+1):
+        video=lt.getElement(nueva_lista,i)
+        comparador=lt.lastElement(lista_ordenada)
+        if comparador["title"]!=video["title"]:
+            lt.addLast(lista_ordenada,video)
+    
+    lista_ordenada=mergeSort(lista_ordenada,4)[0]
+
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+
+    return lista_ordenada,elapsed_time_mseg
+            
     
 def seleccionarOrdenamiento(tipo,lista,ascendente):
     tipo=int(tipo)

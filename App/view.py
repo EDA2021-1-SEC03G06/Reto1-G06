@@ -28,6 +28,7 @@ assert cf
 import time
 
 
+
 """
 La vista se encarga de la interacción con el usuario
 Presenta el menu de opciones y por cada seleccion
@@ -126,6 +127,21 @@ while True:
         video=video_cates[0] 
         print(video["title"]," ",video["channel_title"], " ",  video["category_id"]," ",video_cates[1])
         print("el algoritmo se demora :", video_cates[2],"ms")
+    elif inputs==6:
+        pais=input("Ingrese el nombre del pais ")
+        
+        numero=int(input("Ingrese la cantidad de videos "))
+        tag=input("Ingrese el tag ")
+        print("cargando")
+        videos=controller.PaisTagLikes(pais,tag,catalog)
+        size=lt.size(videos[0])
+        if numero>size:
+            numero=size
+        for i in range(1,numero+1):
+            video=lt.getElement(videos[0],i)
+            print(i, " ",video["title"]," ",video["channel_title"]," ",video["publish_time"]," ",video["likes"]," ",video["country"])
+        print("Tiempo de ejecución: ", videos[1])
+
 
     elif inputs==7:
         size=int(input("Indique el tamaño de la muestra"))
