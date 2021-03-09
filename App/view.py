@@ -118,6 +118,14 @@ while True:
         video=video_dias[0]
         print(video["title"] ," ", video["channel_title"]," ", video["country"]," ",video_dias[1])
         print("El algoritmo se demora :" , video_dias[2] ," ms")
+    elif inputs==5:
+        nombre=input("Ingrese la categoria del video  ")
+        print ("Cargando...")   
+        
+        video_cates=controller.CategoriaTendencia(nombre,catalog)
+        video=video_cates[0] 
+        print(video["title"]," ",video["channel_title"], " ",  video["category_id"]," ",video_cates[1])
+        print("el algoritmo se demora :", video_cates[2],"ms")
 
     elif inputs==7:
         size=int(input("Indique el tamaño de la muestra"))

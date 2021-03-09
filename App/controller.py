@@ -75,6 +75,8 @@ def PaisesCategoria(pais,categoria,tamano,tipo,catalog):
     return model.listaPorCategoriaPaises(pais,categoria,tamano,tipo,catalog)
 def PaisTendencia(pais,catalog):
     return model.encontrarVideoTendenciaPais(pais,catalog)
+def CategoriaTendencia(nombre,catalog):
+        return model.encontrarVideoTendenciaCategoria(nombre,catalog)
 # Funciones para reducir datos
 def reduceList(catalog,size):
     return model.reduceList(catalog,size)

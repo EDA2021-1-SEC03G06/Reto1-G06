@@ -237,6 +237,42 @@ def encontrarVideoTendenciaPais(pais,catalog):
                 cantidad_mayor=cantidad
                 mayor=lt.getElement(lista_ordenada,numeral)
             numeral+=1
+
+def encontrarVideoTendenciaCategoria(nombre,catalog):
+    start_time = time.process_time()
+    videos = catalog["videos"]
+    size=lt.size(videos)
+    contador=1
+    numero = getCategoryNumber(nombre,catalog)
+    for i in range(1,size+1):               #seleccionamos los videos que son de una categoria y los colocamos al inicio de la lista
+        video=lt.getElement(videos,i)
+        if cmpVideosByCategory(numero,video):
+            lt.exchange(videos,i,contador)
+            contador+=1
+    
+    lista_categoria=lt.subList(videos,1,contador) #reducimos la lista total de videos a los videos que son de la categoria deseada
+    lista_ordenada=mergeSort(lista_categoria,3)[0] #ordenamos las categorias segun su id
+
+    mayor=lt.getElement(lista_ordenada,1)
+    cantidad_mayor=0
+    size=lt.size(lista_ordenada)
+    print(size)
+    
+    for i in range(1,size+1):                    #se compara cual es el video que mas dias ha durado en tendencia
+        comparador=lt.getElement(lista_ordenada,i)
+        bandera=True
+        numeral=i
+        cantidad=0
+        while bandera and numeral<=size:
+            comparado=lt.getElement(lista_ordenada,numeral)
+            if comparador["video_id"]==comparado["video_id"]:
+                cantidad+=1
+            else:
+                bandera=False
+            if cantidad>cantidad_mayor:
+                cantidad_mayor=cantidad
+                mayor=lt.getElement(lista_ordenada,numeral)
+            numeral+=1
         
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
