@@ -75,6 +75,7 @@ def getCategoryNumber(nombre,catalog):
     for i in range(1,size+1):
         elemento=lt.getElement(categorias,i)
         if elemento["name"]==nombre:
+            print(elemento["id"])
             return int(elemento["id"])
     return -1
 # Funciones utilizadas para comparar elementos dentro de una lista
@@ -244,6 +245,7 @@ def encontrarVideoTendenciaCategoria(nombre,catalog):
     size=lt.size(videos)
     contador=1
     numero = getCategoryNumber(nombre,catalog)
+
     for i in range(1,size+1):               #seleccionamos los videos que son de una categoria y los colocamos al inicio de la lista
         video=lt.getElement(videos,i)
         if cmpVideosByCategory(numero,video):
@@ -265,7 +267,7 @@ def encontrarVideoTendenciaCategoria(nombre,catalog):
         cantidad=0
         while bandera and numeral<=size:
             comparado=lt.getElement(lista_ordenada,numeral)
-            if comparador["video_id"]==comparado["video_id"]:
+            if comparador["title"]==comparado["title"]:
                 cantidad+=1
             else:
                 bandera=False
